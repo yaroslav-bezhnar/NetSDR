@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.13.35913.81 d17.13
+VisualStudioVersion = 17.13.35913.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetSDR.Client", "NetSDR.Client\NetSDR.Client.csproj", "{E1E76EF9-49FC-4131-9D31-A497370B2761}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetSdr.Client.Test", "NetSdr.Client.Tests\NetSdr.Client.Test.csproj", "{C79BD616-C66B-4046-A726-77E53D34C72F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetSDR.Web", "NetSDR.Web\NetSDR.Web.csproj", "{2A344664-C6BB-4E9E-A89F-56E4FB3108E4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{C79BD616-C66B-4046-A726-77E53D34C72F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C79BD616-C66B-4046-A726-77E53D34C72F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C79BD616-C66B-4046-A726-77E53D34C72F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A344664-C6BB-4E9E-A89F-56E4FB3108E4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A344664-C6BB-4E9E-A89F-56E4FB3108E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A344664-C6BB-4E9E-A89F-56E4FB3108E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A344664-C6BB-4E9E-A89F-56E4FB3108E4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

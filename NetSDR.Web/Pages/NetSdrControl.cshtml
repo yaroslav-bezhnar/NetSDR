@@ -1,0 +1,32 @@
+﻿@page
+@model NetSDR.Web.Pages.NetSdrControlModel
+
+<h2>NetSDR Control Panel</h2>
+
+<p>Status: <strong>@Model.StatusMessage</strong></p>
+
+<form method="post" asp-page-handler="Connect">
+    <button type="submit" @(Model.IsConnected ? "disabled" : string.Empty)>Connect</button>
+</form>
+
+<form method="post" asp-page-handler="Disconnect">
+    <button type="submit" @(Model.IsConnected ? string.Empty : "disabled")>Disconnect</button>
+</form>
+
+<form method="post" asp-page-handler="StartTransmission">
+    <button type="submit" @(Model.IsConnected ? string.Empty : "disabled")>Start Transmission</button>
+</form>
+
+<form method="post" asp-page-handler="StopTransmission">
+    <button type="submit" @(Model.IsConnected ? "" : "disabled")>Stop Transmission</button>
+</form>
+
+<form method="post" asp-page-handler="SetFrequency">
+    <input asp-for="Frequency" step="0.01" disabled="@(Model.IsConnected ? null : "disabled")" />
+    <button type="submit" @(Model.IsConnected ? string.Empty : "disabled")>Set Frequency</button>
+</form>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <p style="color:red;">Error: @Model.ErrorMessage</p>
+}
