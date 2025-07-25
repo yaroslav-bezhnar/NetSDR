@@ -3,7 +3,7 @@
 /// <summary>
 /// Represents a network client capable of connecting, sending, and receiving data asynchronously.
 /// </summary>
-public interface INetworkClient
+public interface INetworkClient : IDisposable
 {
     #region methods
 

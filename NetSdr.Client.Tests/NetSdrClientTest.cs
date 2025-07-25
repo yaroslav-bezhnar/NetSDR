@@ -1,7 +1,9 @@
-using Moq;
 using System.Net.Sockets;
-using NetSDR.Client;
 using System.Text;
+using Microsoft.Extensions.Logging;
+using Moq;
+using NetSDR.Client;
+using Polly.Timeout;
 
 namespace NetSdr.Client.Test;
 
@@ -123,7 +125,7 @@ public class NetSdrClientTest
             .Setup(client => client.ConnectAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
             .ThrowsAsync(new OperationCanceledException());
 
-        await Assert.ThrowsAsync<OperationCanceledException>(() => _netSdrClient.ConnectAsync(cts.Token));
+        await Assert.ThrowsAnyAsync<OperationCanceledException>(() => _netSdrClient.ConnectAsync(cts.Token));
     }
 
     [Fact]
@@ -172,5 +174,105 @@ public class NetSdrClientTest
             .ThrowsAsync(new Exception("Write failed"));
 
         await Assert.ThrowsAsync<Exception>(() => _netSdrClient.ToggleTransmissionAsync(true));
+    }
+
+    [Fact]
+    public async Task ToggleTransmissionAsync_WhenNakReceived_LogsWarning()
+    {
+        var mockLogger = new Mock<ILogger<NetSdrClient>>();
+        var client = new NetSdrClient(networkClient: _mockNetworkClient.Object, logger: mockLogger.Object);
+
+        await client.ConnectAsync();
+
+        var nakBytes = Encoding.ASCII.GetBytes("NAK");
+
+        _mockNetworkClient
+            .Setup(c => c.WriteAsync(It.IsAny<byte[]>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
+            .Returns(Task.CompletedTask);
+
+        _mockNetworkClient
+            .Setup(c => c.ReadAsync(It.IsAny<byte[]>(), It.IsAny<int>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
+            .Callback<byte[], int, int, CancellationToken>((buffer, offset, _, _) =>
+            {
+                Array.Copy(nakBytes, 0, buffer, offset, nakBytes.Length);
+            })
+            .ReturnsAsync(nakBytes.Length);
+
+        await client.ToggleTransmissionAsync(true);
+
+        mockLogger.Verify(
+            log => log.Log(
+                LogLevel.Warning,
+                It.IsAny<EventId>(),
+                It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains("NAK received")),
+                null,
+                It.IsAny<Func<It.IsAnyType, Exception, string>>()!),
+            Times.Once);
+    }
+
+    [Fact]
+    public async Task ConnectAsync_WhenTimeoutExceeded_ThrowsTimeoutRejectedException()
+    {
+        var client = new NetSdrClient(networkClient: _mockNetworkClient.Object, timeout: TimeSpan.FromMilliseconds(100));
+
+        _mockNetworkClient
+            .Setup(c => c.ConnectAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
+            .Returns(async () =>
+            {
+                await Task.Delay(500); // симуляція затримки, щоб спрацював таймаут
+            });
+
+        await Assert.ThrowsAsync<TimeoutRejectedException>(() => client.ConnectAsync());
+    }
+
+    [Fact]
+    public async Task ConnectAsync_MultipleConcurrentCalls_OnlyConnectsOnce()
+    {
+        int connectCallCount = 0;
+
+        _mockNetworkClient
+            .Setup(client => client.ConnectAsync(It.IsAny<string>(), It.IsAny<int>(), It.IsAny<CancellationToken>()))
+            .Returns(() =>
+            {
+                connectCallCount++;
+                return Task.Delay(100); // імітація затримки
+            });
+
+        var tasks = Enumerable.Range(0, 5)
+            .Select(_ => _netSdrClient.ConnectAsync())
+            .ToArray();
+
+        await Task.WhenAll(tasks);
+
+        Assert.Equal(1, connectCallCount);
+    }
+
+    [Fact]
+    public async Task Disconnect_MultipleConcurrentCalls_OnlyClosesOnce()
+    {
+        await _netSdrClient.ConnectAsync();
+
+        var closeCallCount = 0;
+        _mockNetworkClient.Setup(c => c.Close()).Callback(() => Interlocked.Increment(ref closeCallCount));
+
+        var tasks = Enumerable.Range(0, 5)
+            .Select(_ => Task.Run(() => _netSdrClient.Disconnect()))
+            .ToArray();
+
+        await Task.WhenAll(tasks);
+
+        Assert.Equal(1, closeCallCount);
+        Assert.False(_netSdrClient.IsConnected);
+    }
+
+    [Fact]
+    public void Dispose_CallsNetworkClientDispose_OnlyOnce()
+    {
+        _mockNetworkClient.Setup(nc => nc.Dispose());
+
+        _netSdrClient.Dispose();
+        _netSdrClient.Dispose();
+
+        _mockNetworkClient.Verify(nc => nc.Dispose(), Times.Once);
     }
 }
