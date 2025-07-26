@@ -47,4 +47,4 @@ jobs:
 
       # Run only Client Tests
       - name: Run Client Tests
-        run: dotnet test NetSDR.Client.Test/NetSDR.Client.Test.csproj -c Release --no-build --verbosity normal
+        run: dotnet test NetSDR.Client.Test/NetSDR.Client.Tests.csproj -c Release --no-build --verbosity normal
