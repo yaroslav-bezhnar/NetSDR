@@ -46,7 +46,7 @@ public class TcpNetworkClientTests : IDisposable
         await _client.WriteAsync(payload, 1, 3, CancellationToken.None);
 
         var buffer = new byte[3];
-        var read = await _server.Stream.ReadAsync(buffer, 0, buffer.Length);
+        var read = await _server.Stream!.ReadAsync(buffer, 0, buffer.Length);
 
         Assert.Equal(3, read);
         Assert.Equal("ELL", Encoding.UTF8.GetString(buffer));
@@ -61,7 +61,7 @@ public class TcpNetworkClientTests : IDisposable
         {
             await Task.Delay(50);
             var msg = new byte[] { 1, 2, 3, 4 };
-            await _server.Stream.WriteAsync(msg, 0, msg.Length);
+            await _server.Stream!.WriteAsync(msg, 0, msg.Length);
         });
 
         var readBuffer = new byte[4];
