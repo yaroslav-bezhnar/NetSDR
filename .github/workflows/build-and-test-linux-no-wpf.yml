@@ -12,39 +12,39 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: '8.0.x'
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
 
-    - name: Restore dependencies
-      run: |
-    dotnet restore NetSDR.Core/NetSDR.Core.csproj
-    dotnet restore NetSDR.Simulator/NetSDR.Simulator.csproj
-    dotnet restore NetSDR.Client/NetSDR.Client.csproj
-    dotnet restore NetSDR.Console/NetSDR.Console.csproj
-    dotnet restore NetSDR.Web/NetSDR.Web.csproj
-    dotnet restore NetSDR.Client.Test/NetSDR.Client.Test.csproj
+      - name: Restore dependencies
+        run: |
+          dotnet restore NetSDR.Core/NetSDR.Core.csproj
+          dotnet restore NetSDR.Simulator/NetSDR.Simulator.csproj
+          dotnet restore NetSDR.Client/NetSDR.Client.csproj
+          dotnet restore NetSDR.Console/NetSDR.Console.csproj
+          dotnet restore NetSDR.Web/NetSDR.Web.csproj
+          dotnet restore NetSDR.Client.Test/NetSDR.Client.Test.csproj
 
-    # Build only selected projects (exclude WPF)
-    - name: Build Core
-      run: dotnet build NetSDR.Core/NetSDR.Core.csproj -c Release --no-restore
+      # Build only selected projects (exclude WPF)
+      - name: Build Core
+        run: dotnet build NetSDR.Core/NetSDR.Core.csproj -c Release --no-restore
 
-    - name: Build Simulator
-      run: dotnet build NetSDR.Simulator/NetSDR.Simulator.csproj -c Release --no-restore
+      - name: Build Simulator
+        run: dotnet build NetSDR.Simulator/NetSDR.Simulator.csproj -c Release --no-restore
 
-    - name: Build Client
-      run: dotnet build NetSDR.Client/NetSDR.Client.csproj -c Release --no-restore
+      - name: Build Client
+        run: dotnet build NetSDR.Client/NetSDR.Client.csproj -c Release --no-restore
 
-    - name: Build Console
-      run: dotnet build NetSDR.Console/NetSDR.Console.csproj -c Release --no-restore
+      - name: Build Console
+        run: dotnet build NetSDR.Console/NetSDR.Console.csproj -c Release --no-restore
 
-    - name: Build Web
-      run: dotnet build NetSDR.Web/NetSDR.Web.csproj -c Release --no-restore
+      - name: Build Web
+        run: dotnet build NetSDR.Web/NetSDR.Web.csproj -c Release --no-restore
 
-    # Run only Client Tests
-    - name: Run Client Tests
-      run: dotnet test NetSDR.Client.Test/NetSDR.Client.Test.csproj -c Release --no-build --verbosity normal
+      # Run only Client Tests
+      - name: Run Client Tests
+        run: dotnet test NetSDR.Client.Test/NetSDR.Client.Test.csproj -c Release --no-build --verbosity normal
