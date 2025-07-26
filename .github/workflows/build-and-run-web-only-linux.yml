@@ -1,4 +1,4 @@
-name: Build and Run Web Project (Linux, include Web only)
+name: Build & Run Web Project (Linux, include Web only)
 
 on:
   workflow_dispatch:
