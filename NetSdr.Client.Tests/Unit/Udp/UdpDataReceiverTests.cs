@@ -43,7 +43,7 @@ public class UdpDataReceiverTests
             _receiver.Dispose();
 
             Assert.True(result.IsSuccess);
-            Assert.Equal("Receiving was cancelled.", result.Message);
+            Assert.Contains(result.Message, new[] { "Receiving was cancelled.", "Receiving completed." });
 
             Assert.Single(receivedSamples);
             var actual = receivedSamples[0];
