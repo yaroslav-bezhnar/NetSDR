@@ -34,7 +34,7 @@ namespace NetSDR.Web.Pages
         [BindProperty]
         public string OutputPath { get; set; } = "output.dat";
 
-        public string StatusMessage { get; private set; }
+        public string StatusMessage { get; private set; } = string.Empty;
         public string? ErrorMessage { get; private set; }
         public string? ReceivedMessage { get; private set; }
 

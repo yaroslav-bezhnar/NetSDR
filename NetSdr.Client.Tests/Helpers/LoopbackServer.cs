@@ -9,7 +9,7 @@ public class LoopbackServer : IDisposable
     private readonly CancellationTokenSource _cts = new();
 
     public int Port { get; }
-    public NetworkStream Stream { get; private set; }
+    public NetworkStream? Stream { get; private set; }
 
     public LoopbackServer()
     {

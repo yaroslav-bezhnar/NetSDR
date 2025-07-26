@@ -167,7 +167,7 @@ public class NetSdrTcpClientTests
             It.IsAny<EventId>(),
             It.Is<It.IsAnyType>((v, t) => v.ToString()!.Contains("NAK received")),
             null,
-            It.IsAny<Func<It.IsAnyType, Exception, string>>()), Times.Once);
+            It.IsAny<Func<It.IsAnyType, Exception?, string>>()), Times.Once);
     }
 
     [Fact]
