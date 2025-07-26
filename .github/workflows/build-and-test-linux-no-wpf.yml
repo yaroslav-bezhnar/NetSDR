@@ -21,7 +21,13 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: |
+    dotnet restore NetSDR.Core/NetSDR.Core.csproj
+    dotnet restore NetSDR.Simulator/NetSDR.Simulator.csproj
+    dotnet restore NetSDR.Client/NetSDR.Client.csproj
+    dotnet restore NetSDR.Console/NetSDR.Console.csproj
+    dotnet restore NetSDR.Web/NetSDR.Web.csproj
+    dotnet restore NetSDR.Client.Test/NetSDR.Client.Test.csproj
 
     # Build only selected projects (exclude WPF)
     - name: Build Core
