@@ -1,0 +1,32 @@
+name: Web Project Check (Linux)
+
+on:
+  workflow_dispatch:
+
+jobs:
+  run-web:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore
+        run: dotnet restore NetSDR.Web/NetSDR.Web.csproj
+
+      - name: Build
+        run: dotnet build NetSDR.Web/NetSDR.Web.csproj -c Release --no-restore
+
+      - name: Run Web Project in background
+        run: |
+          dotnet run --project NetSDR.Web/NetSDR.Web.csproj --no-launch-profile --urls=http://localhost:5000 &
+          echo "Waiting for server..."
+          sleep 5
+
+      - name: Ping site
+        run: curl --fail http://localhost:5000 || (echo "❌ Site not reachable" && exit 1)
