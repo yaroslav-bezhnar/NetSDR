@@ -153,9 +153,9 @@ public class NetSdrClientTest
     }
 
     [Fact]
-    public void Disconnect_CalledMultipleTimes_OnlyClosesOnce()
+    public async Task Disconnect_CalledMultipleTimes_OnlyClosesOnce()
     {
-        _netSdrClient.ConnectAsync().Wait();
+        await _netSdrClient.ConnectAsync();
         _mockNetworkClient.Setup(c => c.Close());
 
         _netSdrClient.Disconnect();
