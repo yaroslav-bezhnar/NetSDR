@@ -1,9 +1,9 @@
-﻿namespace NetSDR.Client;
+﻿namespace NetSDR.Client.Interfaces;
 
 /// <summary>
 /// Represents a network client capable of connecting, sending, and receiving data asynchronously.
 /// </summary>
-public interface INetworkClient : IDisposable
+public interface ITcpNetworkClient : IDisposable
 {
     #region methods
 

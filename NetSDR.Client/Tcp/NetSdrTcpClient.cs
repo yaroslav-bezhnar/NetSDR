@@ -1,12 +1,13 @@
 ﻿using System.Net.Sockets;
 using System.Text;
 using Microsoft.Extensions.Logging;
+using NetSDR.Client.Interfaces;
 using Polly;
 using Polly.Timeout;
 
-namespace NetSDR.Client;
+namespace NetSDR.Client.Tcp;
 
-public class NetSdrClient : IDisposable
+public class NetSdrTcpClient : INetSdrClient
 {
     #region constants
 
@@ -20,9 +21,9 @@ public class NetSdrClient : IDisposable
 
     private readonly int _tcpPort;
     private readonly string _host;
-    private readonly INetworkClient _networkClient;
+    private readonly ITcpNetworkClient _tcpNetworkClient;
     private readonly IAsyncPolicy _resiliencePolicy;
-    private readonly ILogger<NetSdrClient>? _logger;
+    private readonly ILogger<NetSdrTcpClient>? _logger;
 
     private readonly SemaphoreSlim _connectLock = new(1, 1);
     private readonly SemaphoreSlim _disconnectLock = new(1, 1);
@@ -46,15 +47,15 @@ public class NetSdrClient : IDisposable
 
     #region constructors
 
-    public NetSdrClient(string host = DefaultAddress,
+    public NetSdrTcpClient(string host = DefaultAddress,
                         int tcpPort = DefaultTcpPort,
                         TimeSpan? timeout = null,
-                        INetworkClient? networkClient = null,
-                        ILogger<NetSdrClient>? logger = null)
+                        ITcpNetworkClient? networkClient = null,
+                        ILogger<NetSdrTcpClient>? logger = null)
     {
         _host = host ?? throw new ArgumentNullException(nameof(host));
         _tcpPort = tcpPort;
-        _networkClient = networkClient ?? new NetworkClient();
+        _tcpNetworkClient = networkClient ?? new TcpNetworkClient();
         _logger = logger;
 
         var retryPolicy = Policy
@@ -109,7 +110,7 @@ public class NetSdrClient : IDisposable
 
             _connectTask = _resiliencePolicy.ExecuteAsync(async ct =>
             {
-                await _networkClient.ConnectAsync(_host, _tcpPort, ct);
+                await _tcpNetworkClient.ConnectAsync(_host, _tcpPort, ct);
                 IsConnected = true;
                 _logger?.LogInformation("Connected to {Host}:{Port}", _host, _tcpPort);
             }, cancellationToken);
@@ -145,7 +146,7 @@ public class NetSdrClient : IDisposable
                 return;
             }
 
-            _networkClient.Close();
+            _tcpNetworkClient.Close();
             IsConnected = false;
             _logger?.LogInformation("Disconnected successfully.");
         }
@@ -173,7 +174,7 @@ public class NetSdrClient : IDisposable
             var command = start ? "START_IQ" : "STOP_IQ";
             var bytes = Encoding.ASCII.GetBytes(command);
 
-            await _networkClient.WriteAsync(bytes, 0, bytes.Length, cancellationToken);
+            await _tcpNetworkClient.WriteAsync(bytes, 0, bytes.Length, cancellationToken);
 
             if (start)
             {
@@ -204,7 +205,7 @@ public class NetSdrClient : IDisposable
             var command = $"SET_FREQUENCY {frequency:F2}";
             var bytes = Encoding.ASCII.GetBytes(command);
 
-            await _networkClient.WriteAsync(bytes, 0, bytes.Length, cancellationToken);
+            await _tcpNetworkClient.WriteAsync(bytes, 0, bytes.Length, cancellationToken);
 
             await HandleResponseAsync(cancellationToken);
 
@@ -222,7 +223,7 @@ public class NetSdrClient : IDisposable
         try
         {
             var responseBuffer = new byte[1024];
-            var bytesRead = await _networkClient.ReadAsync(responseBuffer, 0, responseBuffer.Length, cancellationToken);
+            var bytesRead = await _tcpNetworkClient.ReadAsync(responseBuffer, 0, responseBuffer.Length, cancellationToken);
 
             cancellationToken.ThrowIfCancellationRequested();
 
@@ -259,7 +260,7 @@ public class NetSdrClient : IDisposable
 
         if (disposing)
         {
-            _networkClient.Dispose();
+            _tcpNetworkClient.Dispose();
         }
 
         _disposed = true;

@@ -1,12 +1,13 @@
 ﻿using System.Net.Sockets;
+using NetSDR.Client.Interfaces;
 
-namespace NetSDR.Client;
+namespace NetSDR.Client.Tcp;
 
-public class NetworkClient : INetworkClient
+public class TcpNetworkClient : ITcpNetworkClient
 {
     #region fields
 
-    private readonly TcpClient _tcpClient = new();
+    private TcpClient? _tcpClient;
     private NetworkStream? _networkStream;
 
     #endregion
@@ -15,6 +16,7 @@ public class NetworkClient : INetworkClient
 
     public async Task ConnectAsync(string host, int port, CancellationToken cancellationToken = default)
     {
+        _tcpClient = new();
         await _tcpClient.ConnectAsync(host, port, cancellationToken);
         _networkStream = _tcpClient.GetStream();
     }
@@ -28,13 +30,17 @@ public class NetworkClient : INetworkClient
     public void Close()
     {
         _networkStream?.Close();
-        _tcpClient.Close();
+        _tcpClient?.Close();
+        _networkStream = null;
+        _tcpClient = null;
     }
 
     public void Dispose()
     {
         _networkStream?.Dispose();
-        _tcpClient.Dispose();
+        _tcpClient?.Dispose();
+        _networkStream = null;
+        _tcpClient = null;
     }
 
     private NetworkStream GetStream() =>

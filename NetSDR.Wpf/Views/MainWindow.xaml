@@ -1,0 +1,36 @@
+﻿<Window x:Class="NetSDR.Wpf.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:NetSDR.Wpf.ViewModels"
+        WindowStartupLocation="CenterScreen"
+        Title="NetSDR UI" Height="320" Width="420">
+    <Window.DataContext>
+        <vm:MainViewModel />
+    </Window.DataContext>
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" Margin="0 0 0 10">
+            <TextBlock Text="{Binding StatusMessage}" FontSize="16" Foreground="DarkGreen" />
+            <TextBlock Text="{Binding ErrorMessage}" TextWrapping="Wrap" Foreground="Red" FontStyle="Italic" />
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="0 0 0 15">
+            <TextBlock Text="Frequency:" VerticalAlignment="Center" Margin="0 0 10 0"/>
+            <TextBox Width="120" Text="{Binding Frequency, Mode=TwoWay}" IsEnabled="{Binding IsConnected}" />
+            <Button Content="Set" Command="{Binding SetFrequencyCommand}" Margin="10 0 0 0"/>
+        </StackPanel>
+
+        <WrapPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" ItemWidth="90" ItemHeight="35">
+            <Button Content="Connect" Command="{Binding ConnectCommand}" />
+            <Button Content="Disconnect" Command="{Binding DisconnectCommand}" />
+            <Button Content="Start TX" Command="{Binding StartTransmissionCommand}" />
+            <Button Content="Stop TX" Command="{Binding StopTransmissionCommand}" />
+        </WrapPanel>
+    </Grid>
+</Window>

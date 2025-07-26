@@ -9,6 +9,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetSdr.Client.Test", "NetSd
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetSDR.Web", "NetSDR.Web\NetSDR.Web.csproj", "{2A344664-C6BB-4E9E-A89F-56E4FB3108E4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetSDR.Wpf", "NetSDR.Wpf\NetSDR.Wpf.csproj", "{D5B14EFD-4D5D-4A8C-B4A2-CC03B79D2858}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetSDR.Simulator", "NetSDR.Simulator\NetSDR.Simulator.csproj", "{A35AF8E0-5420-47EA-B95C-3E282D7B662A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetSDR.Console", "NetSDR.Console\NetSDR.Console.csproj", "{61656C8A-E6AC-438B-93AE-0C7859C88081}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetSDR.Core", "NetSDR.Core\NetSDR.Core.csproj", "{51B7FC67-CCE5-47AD-961B-4AFA0BB8DA3C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +35,22 @@ Global
 		{2A344664-C6BB-4E9E-A89F-56E4FB3108E4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A344664-C6BB-4E9E-A89F-56E4FB3108E4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A344664-C6BB-4E9E-A89F-56E4FB3108E4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D5B14EFD-4D5D-4A8C-B4A2-CC03B79D2858}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D5B14EFD-4D5D-4A8C-B4A2-CC03B79D2858}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D5B14EFD-4D5D-4A8C-B4A2-CC03B79D2858}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D5B14EFD-4D5D-4A8C-B4A2-CC03B79D2858}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A35AF8E0-5420-47EA-B95C-3E282D7B662A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A35AF8E0-5420-47EA-B95C-3E282D7B662A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A35AF8E0-5420-47EA-B95C-3E282D7B662A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A35AF8E0-5420-47EA-B95C-3E282D7B662A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61656C8A-E6AC-438B-93AE-0C7859C88081}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61656C8A-E6AC-438B-93AE-0C7859C88081}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61656C8A-E6AC-438B-93AE-0C7859C88081}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61656C8A-E6AC-438B-93AE-0C7859C88081}.Release|Any CPU.Build.0 = Release|Any CPU
+		{51B7FC67-CCE5-47AD-961B-4AFA0BB8DA3C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{51B7FC67-CCE5-47AD-961B-4AFA0BB8DA3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{51B7FC67-CCE5-47AD-961B-4AFA0BB8DA3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{51B7FC67-CCE5-47AD-961B-4AFA0BB8DA3C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
