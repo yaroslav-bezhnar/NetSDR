@@ -43,11 +43,11 @@ public class Program
         try
         {
             var client = new NetSdrClient("127.0.0.1", 50000);
-            await using var receiver = new UdpDataReceiver(logger: receiverLogger);
 
             client.OnTransmissionStarted += async () =>
             {
-                _ = receiver.StartReceivingAsync("iq_test.bin", cts.Token);
+                await using var receiver = new UdpDataReceiver(logger: receiverLogger);
+                await receiver.StartReceivingAsync("iq_test.bin", cts.Token);
             };
 
             await client.ConnectAsync(cts.Token);
