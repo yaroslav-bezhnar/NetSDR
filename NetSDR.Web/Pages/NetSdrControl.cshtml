@@ -4,84 +4,103 @@
     ViewData["Title"] = "NetSDR Control";
 }
 
-<h1>🎛 NetSDR Control Dashboard</h1>
+<div class="row">
+    <!-- 🎛 Main panel NetSDR -->
+    <div class="col-md-8">
+        <h1>🎛 NetSDR Control Dashboard</h1>
 
-@if (!string.IsNullOrEmpty(Model.ErrorMessage))
-{
-    <div class="alert alert-danger">@Model.ErrorMessage</div>
-}
+        @if (!string.IsNullOrEmpty(Model.ErrorMessage))
+        {
+            <div class="alert alert-danger">@Model.ErrorMessage</div>
+        }
 
-@if (!string.IsNullOrEmpty(Model.ReceivedMessage))
-{
-    <div class="alert alert-success">Received TCP Message: <pre>@Model.ReceivedMessage</pre></div>
-}
+        @if (!string.IsNullOrEmpty(Model.ReceivedMessage))
+        {
+            <div class="alert alert-success">
+                Received TCP Message:
+                <pre>@Model.ReceivedMessage</pre>
+            </div>
+        }
 
-<p><strong>Status:</strong> @Model.StatusMessage</p>
+        <p><strong>Status:</strong> @Model.StatusMessage</p>
 
-<hr />
-<h3>🔌 NetSDR Client Connection</h3>
+        <hr />
+        <h3>🔌 NetSDR Client Connection</h3>
 
-<form method="post" asp-page-handler="Connect">
-    <button type="submit" class="btn btn-success" @(Model.IsConnected ? "disabled" : string.Empty)>Connect</button>
-</form>
+        <form method="post" asp-page-handler="Connect">
+            <button type="submit" class="btn btn-success" @(Model.IsConnected ? "disabled" : string.Empty)>Connect</button>
+        </form>
 
-<form method="post" asp-page-handler="Disconnect">
-    <button type="submit" class="btn btn-danger" @(Model.IsConnected ? string.Empty : "disabled")>Disconnect</button>
-</form>
+        <form method="post" asp-page-handler="Disconnect">
+            <button type="submit" class="btn btn-danger" @(Model.IsConnected ? string.Empty : "disabled")>Disconnect</button>
+        </form>
 
-<hr />
-<h2>⚡ Transmission Control</h2>
+        <hr />
+        <h2>⚡ Transmission Control</h2>
 
-<form method="post" asp-page-handler="SetFrequency">
-    <label>Frequency (Hz):</label>
-    <input asp-for="Frequency" disabled="@(Model.IsConnected ? null : "disabled")" class="form-control" />
-    <button type="submit" class="btn btn-primary" @(Model.IsConnected ? string.Empty : "disabled")>Set Frequency</button>
-</form>
+        <form method="post" asp-page-handler="SetFrequency">
+            <label>Frequency (Hz):</label>
+            <input asp-for="Frequency" disabled="@(Model.IsConnected ? null : "disabled")" class="form-control" />
+            <button type="submit" class="btn btn-primary" @(Model.IsConnected ? string.Empty : "disabled")>Set Frequency</button>
+        </form>
 
-<form method="post" asp-page-handler="ToggleTransmission">
-    <input type="hidden" name="startTrasmition" value="true" />
-    <button type="submit" class="btn btn-success" @(Model.IsConnected ? string.Empty : "disabled")>Start Transmission</button>
-</form>
+        <form method="post" asp-page-handler="ToggleTransmission">
+            <input type="hidden" name="startTrasmition" value="true" />
+            <button type="submit" class="btn btn-success" @(Model.IsConnected ? string.Empty : "disabled")>Start Transmission</button>
+        </form>
 
-<form method="post" asp-page-handler="ToggleTransmission">
-    <input type="hidden" name="startTrasmition" value="false" />
-    <button type="submit" class="btn btn-warning" @(Model.IsConnected ? string.Empty : "disabled")>Stop Transmission</button>
-</form>
+        <form method="post" asp-page-handler="ToggleTransmission">
+            <input type="hidden" name="startTrasmition" value="false" />
+            <button type="submit" class="btn btn-warning" @(Model.IsConnected ? string.Empty : "disabled")>Stop Transmission</button>
+        </form>
 
-<hr />
-<h2>🌐 TCP Network Client</h2>
+        <hr />
+        <h2>🌐 TCP Network Client</h2>
 
-<form method="post" asp-page-handler="TcpConnect">
-    <label>Host:</label>
-    <input asp-for="Host" class="form-control" />
-    <label>Port:</label>
-    <input asp-for="Port" class="form-control" />
-    <button type="submit" class="btn btn-primary">Connect</button>
-</form>
+        <form method="post" asp-page-handler="TcpConnect">
+            <label>Host:</label>
+            <input asp-for="Host" class="form-control" />
+            <label>Port:</label>
+            <input asp-for="Port" class="form-control" />
+            <button type="submit" class="btn btn-primary">Connect</button>
+        </form>
 
-<form method="post" asp-page-handler="TcpWrite">
-    <label>Message to Send:</label>
-    <input asp-for="TcpMessage" class="form-control" />
-    <button type="submit" class="btn btn-secondary">Send TCP Message</button>
-</form>
+        <form method="post" asp-page-handler="TcpWrite">
+            <label>Message to Send:</label>
+            <input asp-for="TcpMessage" class="form-control" />
+            <button type="submit" class="btn btn-secondary">Send TCP Message</button>
+        </form>
 
-<form method="post" asp-page-handler="TcpRead">
-    <button type="submit" class="btn btn-info">Read TCP Message</button>
-</form>
+        <form method="post" asp-page-handler="TcpRead">
+            <button type="submit" class="btn btn-info">Read TCP Message</button>
+        </form>
 
-<form method="post" asp-page-handler="TcpClose">
-    <button type="submit" class="btn btn-danger">Close TCP Connection</button>
-</form>
+        <form method="post" asp-page-handler="TcpClose">
+            <button type="submit" class="btn btn-danger">Close TCP Connection</button>
+        </form>
 
-<hr />
-<h2>📡 UDP Data Receiver</h2>
+        <hr />
+        <h2>📡 UDP Data Receiver</h2>
 
-<form method="post" asp-page-handler="StartUdp">
-    <label>Output Path:</label>
-    <input asp-for="OutputPath" class="form-control" />
-    <button type="submit" class="btn btn-success" @(Model.IsUdpReceiving ? "disabled" : "")>Start Receiving</button>
-</form>
+        <form method="post" asp-page-handler="StartUdp">
+            <label>Output Path:</label>
+            <input asp-for="OutputPath" class="form-control" />
+            <button type="submit" class="btn btn-success" @(Model.IsUdpReceiving ? "disabled" : "")>Start Receiving</button>
+        </form>
 
-<form method="post" asp-page-handler="StopUdp">
-    <button type="submit" class="btn btn-danger" @(Model.IsUdpReceiving ? "" : "disabled")>Stop Receiving</button>
-</form>
+        <form method="post" asp-page-handler="StopUdp">
+            <button type="submit" class="btn btn-danger" @(Model.IsUdpReceiving ? "" : "disabled")>Stop Receiving</button>
+        </form>
+    </div>
+
+    <!-- 🔁 Simulator control sidebar -->
+    <div class="col-md-4">
+        <div class="card mt-4">
+            <div class="card-body">
+                <h4 class="card-title">🔁 Simulator control</h4>
+                <p class="card-text">Control TCP/UDP simulators directly from your browser</p>
+                <a asp-page="/SimulatorControl" class="btn btn-outline-primary w-100">Open control panel</a>
+            </div>
+        </div>
+    </div>
+</div>

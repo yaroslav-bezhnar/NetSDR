@@ -5,7 +5,8 @@ using NetSDR.Client.Interfaces;
 using NetSDR.Client.Tcp;
 using NetSDR.Client.Udp;
 using NetSDR.Core.Extensions;
-using NetSDR.Simulator;
+using NetSDR.Simulator.Interfaces;
+using NetSDR.Simulator.Services;
 using Spectre.Console;
 
 var services = new ServiceCollection();

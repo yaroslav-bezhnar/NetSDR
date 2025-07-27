@@ -1,7 +1,8 @@
 using NetSDR.Client.Interfaces;
 using NetSDR.Client.Tcp;
 using NetSDR.Client.Udp;
-using NetSDR.Simulator;
+using NetSDR.Simulator.Interfaces;
+using NetSDR.Simulator.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,7 +40,7 @@ app.MapGet("/", context =>
     return Task.CompletedTask;
 });
 
-app.Services.GetRequiredService<ITcpSimulatorService>().Start();
-app.Services.GetRequiredService<IUdpSimulatorService>().Start();
+//app.Services.GetRequiredService<ITcpSimulatorService>().Start();
+//app.Services.GetRequiredService<IUdpSimulatorService>().Start();
 
 app.Run();
