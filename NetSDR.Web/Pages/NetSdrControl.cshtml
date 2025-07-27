@@ -22,9 +22,11 @@
             </div>
         }
 
-        <p><strong>Status:</strong> @Model.StatusMessage</p>
+        <p>
+            <strong>Status:</strong> @Model.StatusMessage
+        </p>
 
-        <hr />
+        <hr/>
         <h3>🔌 NetSDR Client Connection</h3>
 
         <form method="post" asp-page-handler="Connect">
@@ -35,39 +37,39 @@
             <button type="submit" class="btn btn-danger" @(Model.IsConnected ? string.Empty : "disabled")>Disconnect</button>
         </form>
 
-        <hr />
+        <hr/>
         <h2>⚡ Transmission Control</h2>
 
         <form method="post" asp-page-handler="SetFrequency">
             <label>Frequency (Hz):</label>
-            <input asp-for="Frequency" disabled="@(Model.IsConnected ? null : "disabled")" class="form-control" />
+            <input asp-for="Frequency" disabled="@(Model.IsConnected ? null : "disabled")" class="form-control"/>
             <button type="submit" class="btn btn-primary" @(Model.IsConnected ? string.Empty : "disabled")>Set Frequency</button>
         </form>
 
         <form method="post" asp-page-handler="ToggleTransmission">
-            <input type="hidden" name="startTrasmition" value="true" />
+            <input type="hidden" name="startTransmission" value="true"/>
             <button type="submit" class="btn btn-success" @(Model.IsConnected ? string.Empty : "disabled")>Start Transmission</button>
         </form>
 
         <form method="post" asp-page-handler="ToggleTransmission">
-            <input type="hidden" name="startTrasmition" value="false" />
+            <input type="hidden" name="startTransmission" value="false"/>
             <button type="submit" class="btn btn-warning" @(Model.IsConnected ? string.Empty : "disabled")>Stop Transmission</button>
         </form>
 
-        <hr />
+        <hr/>
         <h2>🌐 TCP Network Client</h2>
 
         <form method="post" asp-page-handler="TcpConnect">
             <label>Host:</label>
-            <input asp-for="Host" class="form-control" />
+            <input asp-for="Host" class="form-control"/>
             <label>Port:</label>
-            <input asp-for="Port" class="form-control" />
+            <input asp-for="Port" class="form-control"/>
             <button type="submit" class="btn btn-primary">Connect</button>
         </form>
 
         <form method="post" asp-page-handler="TcpWrite">
             <label>Message to Send:</label>
-            <input asp-for="TcpMessage" class="form-control" />
+            <input asp-for="TcpMessage" class="form-control"/>
             <button type="submit" class="btn btn-secondary">Send TCP Message</button>
         </form>
 
@@ -79,12 +81,12 @@
             <button type="submit" class="btn btn-danger">Close TCP Connection</button>
         </form>
 
-        <hr />
+        <hr/>
         <h2>📡 UDP Data Receiver</h2>
 
         <form method="post" asp-page-handler="StartUdp">
             <label>Output Path:</label>
-            <input asp-for="OutputPath" class="form-control" />
+            <input asp-for="OutputPath" class="form-control"/>
             <button type="submit" class="btn btn-success" @(Model.IsUdpReceiving ? "disabled" : "")>Start Receiving</button>
         </form>
 

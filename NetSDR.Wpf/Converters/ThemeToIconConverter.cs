@@ -6,6 +6,8 @@ namespace NetSDR.Wpf.Converters;
 
 public class ThemeToIconConverter : IValueConverter
 {
+    #region methods
+
     public object Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>
         value switch
         {
@@ -16,4 +18,6 @@ public class ThemeToIconConverter : IValueConverter
 
     public object ConvertBack(object? value, Type targetType, object? parameter, CultureInfo culture) =>
         throw new NotSupportedException();
+
+    #endregion
 }

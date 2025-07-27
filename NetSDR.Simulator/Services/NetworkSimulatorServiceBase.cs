@@ -4,11 +4,22 @@ namespace NetSDR.Simulator.Services;
 
 public abstract class NetworkSimulatorServiceBase : INetworkSimulatorService
 {
+    #region fields
+
     private CancellationTokenSource? _cts;
 
+    #endregion
+
+    #region properties
+
     protected abstract int DefaultPort { get; }
+
     public int Port { get; private set; }
     public bool IsRunning { get; private set; }
+
+    #endregion
+
+    #region methods
 
     public void Start(int port)
     {
@@ -37,4 +48,6 @@ public abstract class NetworkSimulatorServiceBase : INetworkSimulatorService
 
     private protected abstract Task RunAsync(CancellationToken token);
     private protected abstract void StopInternal();
+
+    #endregion
 }

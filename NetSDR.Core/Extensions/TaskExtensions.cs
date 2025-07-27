@@ -2,6 +2,8 @@
 
 public static class TaskExtensions
 {
+    #region methods
+
     public static async Task<T?> WithTimeoutAsync<T>(this Task<T> task,
                                                      TimeSpan timeout,
                                                      CancellationTokenSource? linkedCts = null) where T : class
@@ -68,4 +70,6 @@ public static class TaskExtensions
         combined.Cancel();
         return false;
     }
+
+    #endregion
 }

@@ -7,6 +7,8 @@ namespace NetSDR.Client.Extensions;
 
 public static class ServiceCollectionExtensions
 {
+    #region methods
+
     public static IServiceCollection AddNetSdrClient(this IServiceCollection services)
     {
         services.AddSingleton<ITcpNetworkClient, TcpNetworkClient>();
@@ -15,4 +17,6 @@ public static class ServiceCollectionExtensions
 
         return services;
     }
+
+    #endregion
 }

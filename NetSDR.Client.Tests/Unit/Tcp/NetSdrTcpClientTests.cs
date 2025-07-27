@@ -13,9 +13,9 @@ public class NetSdrTcpClientTests
 {
     #region fields
 
-    private readonly Mock<ITcpNetworkClient> _mockNetworkClient;
-    private readonly Mock<ILogger<NetSdrTcpClient>> _mockLogger;
     private readonly NetSdrTcpClient _client;
+    private readonly Mock<ILogger<NetSdrTcpClient>> _mockLogger;
+    private readonly Mock<ITcpNetworkClient> _mockNetworkClient;
 
     #endregion
 

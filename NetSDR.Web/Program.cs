@@ -40,7 +40,4 @@ app.MapGet("/", context =>
     return Task.CompletedTask;
 });
 
-//app.Services.GetRequiredService<ITcpSimulatorService>().Start();
-//app.Services.GetRequiredService<IUdpSimulatorService>().Start();
-
 app.Run();

@@ -7,8 +7,14 @@ namespace NetSDR.Client.Tests.Unit.Tcp;
 
 public class TcpNetworkClientTests : IDisposable
 {
-    private readonly LoopbackServer _server;
+    #region fields
+
     private readonly TcpNetworkClient _client;
+    private readonly LoopbackServer _server;
+
+    #endregion
+
+    #region constructors
 
     public TcpNetworkClientTests()
     {
@@ -16,11 +22,9 @@ public class TcpNetworkClientTests : IDisposable
         _client = new TcpNetworkClient();
     }
 
-    public void Dispose()
-    {
-        _client.Dispose();
-        _server.Dispose();
-    }
+    #endregion
+
+    #region methods
 
     [Fact]
     public async Task ConnectAsync_ValidEndpoint_OpensConnection()
@@ -107,4 +111,12 @@ public class TcpNetworkClientTests : IDisposable
         await Assert.ThrowsAsync<InvalidOperationException>(
             () => _client.ReadAsync(new byte[1], 0, 1, CancellationToken.None));
     }
+
+    public void Dispose()
+    {
+        _client.Dispose();
+        _server.Dispose();
+    }
+
+    #endregion
 }

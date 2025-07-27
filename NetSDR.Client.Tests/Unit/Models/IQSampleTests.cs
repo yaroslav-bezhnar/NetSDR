@@ -5,6 +5,8 @@ namespace NetSDR.Client.Tests.Unit.Models;
 
 public class IQSampleTests
 {
+    #region methods
+
     [Fact]
     public void Constructor_SetsValuesCorrectly()
     {
@@ -26,4 +28,6 @@ public class IQSampleTests
         var sample = new IQSample(0, 1);
         sample.Phase.Should().BeApproximately(Math.PI / 2, 0.001);
     }
+
+    #endregion
 }

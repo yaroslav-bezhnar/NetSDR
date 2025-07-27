@@ -11,16 +11,16 @@
             <Style x:Key="ThemedButton" TargetType="Button">
                 <Setter Property="Foreground" Value="{DynamicResource ForegroundColor}" />
                 <Setter Property="Background" Value="{DynamicResource ButtonColor}" />
-                <Setter Property="FontSize" Value="14"/>
-                <Setter Property="Padding" Value="6 2"/>
-                <Setter Property="Cursor" Value="Hand"/>
-                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="Padding" Value="6 2" />
+                <Setter Property="Cursor" Value="Hand" />
+                <Setter Property="BorderThickness" Value="0" />
                 <Setter Property="Template">
                     <Setter.Value>
                         <ControlTemplate TargetType="Button">
                             <Border Background="{TemplateBinding Background}"
                                     CornerRadius="6">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6,2"/>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="6,2" />
                             </Border>
                         </ControlTemplate>
                     </Setter.Value>

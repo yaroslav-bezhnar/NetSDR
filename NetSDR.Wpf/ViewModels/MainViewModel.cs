@@ -8,15 +8,15 @@ namespace NetSDR.Wpf.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
+    #region fields
+
     private readonly NetSdrTcpClient _tcpClient = new();
 
     private ThemeType _currentTheme = ThemeType.Dark;
 
-    public MainViewModel()
-    {
-        StatusMessage = "Disconnected";
-        Frequency = 1_000_000;
-    }
+    #endregion
+
+    #region properties
 
     [ObservableProperty]
     private double frequency;
@@ -40,13 +40,25 @@ public partial class MainViewModel : ObservableObject
         }
     }
 
-    [RelayCommand]
-    private void ToggleTheme()
+    #endregion
+
+    #region constructors
+
+    public MainViewModel()
     {
+        StatusMessage = "Disconnected";
+        Frequency = 1_000_000;
+    }
+
+    #endregion
+
+    #region methods
+
+    [RelayCommand]
+    private void ToggleTheme() =>
         CurrentTheme = CurrentTheme == ThemeType.Light
             ? ThemeType.Dark
             : ThemeType.Light;
-    }
 
     [RelayCommand(CanExecute = nameof(IsDisconnected))]
     private async Task ConnectAsync()
@@ -163,4 +175,6 @@ public partial class MainViewModel : ObservableObject
         dictionaries.Clear();
         dictionaries.Add(new ResourceDictionary { Source = uri });
     }
+
+    #endregion
 }

@@ -8,8 +8,14 @@ namespace NetSDR.Client.Tests.Unit.Udp;
 
 public class UdpDataReceiverTests
 {
+    #region fields
+
     private readonly int _port;
     private readonly UdpDataReceiver _receiver;
+
+    #endregion
+
+    #region constructors
 
     public UdpDataReceiverTests()
     {
@@ -17,6 +23,10 @@ public class UdpDataReceiverTests
         _port = ((IPEndPoint) serverUdp.Client.LocalEndPoint!).Port;
         _receiver = new UdpDataReceiver(_port, serverUdp, NullLogger<UdpDataReceiver>.Instance);
     }
+
+    #endregion
+
+    #region methods
 
     [Fact]
     public async Task StartReceivingAsync_ValidAlignedData_WritesFileAndRaisesSamples()
@@ -153,4 +163,6 @@ public class UdpDataReceiverTests
 
         return buf;
     }
+
+    #endregion
 }

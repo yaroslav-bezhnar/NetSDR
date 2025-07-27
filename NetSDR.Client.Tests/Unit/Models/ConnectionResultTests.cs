@@ -5,6 +5,8 @@ namespace NetSDR.Client.Tests.Unit.Models;
 
 public class ConnectionResultTests
 {
+    #region methods
+
     [Fact]
     public void SuccessResult_IsMarkedCorrectly()
     {
@@ -39,4 +41,6 @@ public class ConnectionResultTests
         var result = new ConnectionResult(success, msg);
         result.ToString().Should().Be(expected);
     }
+
+    #endregion
 }

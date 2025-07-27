@@ -6,9 +6,19 @@ namespace NetSDR.Simulator.Services;
 
 public class UdpSimulatorService : NetworkSimulatorServiceBase, IUdpSimulatorService
 {
+    #region fields
+
     private UdpClient? _udpClient;
 
+    #endregion
+
+    #region properties
+
     protected override int DefaultPort => 50001;
+
+    #endregion
+
+    #region methods
 
     private protected override async Task RunAsync(CancellationToken token)
     {
@@ -27,4 +37,6 @@ public class UdpSimulatorService : NetworkSimulatorServiceBase, IUdpSimulatorSer
         _udpClient?.Close();
         _udpClient = null;
     }
+
+    #endregion
 }

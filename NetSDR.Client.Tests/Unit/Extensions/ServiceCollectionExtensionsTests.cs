@@ -9,7 +9,13 @@ namespace NetSDR.Client.Tests.Unit.Extensions;
 
 public class ServiceCollectionExtensionsTests
 {
+    #region fields
+
     private readonly IServiceProvider _provider;
+
+    #endregion
+
+    #region constructors
 
     public ServiceCollectionExtensionsTests()
     {
@@ -17,6 +23,10 @@ public class ServiceCollectionExtensionsTests
         services.AddNetSdrClient();
         _provider = services.BuildServiceProvider();
     }
+
+    #endregion
+
+    #region methods
 
     [Fact]
     public void NetSdrClient_IsRegisteredAsSingleton()
@@ -44,4 +54,6 @@ public class ServiceCollectionExtensionsTests
         a.Should().BeSameAs(b);
         a.Should().BeOfType<UdpDataReceiver>();
     }
+
+    #endregion
 }

@@ -7,9 +7,19 @@ namespace NetSDR.Simulator.Services;
 
 public class TcpSimulatorService : NetworkSimulatorServiceBase, ITcpSimulatorService
 {
+    #region fields
+
     private TcpListener? _tcpListener;
 
+    #endregion
+
+    #region properties
+
     protected override int DefaultPort => 50000;
+
+    #endregion
+
+    #region methods
 
     private protected override async Task RunAsync(CancellationToken token)
     {
@@ -42,4 +52,6 @@ public class TcpSimulatorService : NetworkSimulatorServiceBase, ITcpSimulatorSer
         _tcpListener?.Stop();
         _tcpListener = null;
     }
+
+    #endregion
 }

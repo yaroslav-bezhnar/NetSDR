@@ -5,11 +5,21 @@ namespace NetSDR.Client.Tests.Helpers;
 
 public class LoopbackServer : IDisposable
 {
+    #region fields
+
     private readonly TcpListener _listener;
     private readonly CancellationTokenSource _cts = new();
 
+    #endregion
+
+    #region properties
+
     public int Port { get; }
     public NetworkStream? Stream { get; private set; }
+
+    #endregion
+
+    #region constructors
 
     public LoopbackServer()
     {
@@ -27,10 +37,16 @@ public class LoopbackServer : IDisposable
         });
     }
 
+    #endregion
+
+    #region methods
+
     public void Dispose()
     {
         _cts.Cancel();
         Stream?.Dispose();
         _listener.Stop();
     }
+
+    #endregion
 }

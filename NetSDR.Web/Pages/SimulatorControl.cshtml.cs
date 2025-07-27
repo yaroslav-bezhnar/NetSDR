@@ -4,52 +4,51 @@ using NetSDR.Simulator.Interfaces;
 
 namespace NetSDR.Web.Pages;
 
-public class SimulatorControlModel : PageModel
+public class SimulatorControlModel(ITcpSimulatorService tcp, IUdpSimulatorService udp) : PageModel
 {
-    private readonly ITcpSimulatorService _tcp;
-    private readonly IUdpSimulatorService _udp;
+    #region properties
 
-    public SimulatorControlModel(ITcpSimulatorService tcp, IUdpSimulatorService udp)
-    {
-        _tcp = tcp;
-        _udp = udp;
-    }
+    public bool TcpRunning => tcp.IsRunning;
+    public int TcpPort => tcp.Port;
 
-    public bool TcpRunning => _tcp.IsRunning;
-    public int TcpPort => _tcp.Port;
+    public bool UdpRunning => udp.IsRunning;
+    public int UdpPort => udp.Port;
 
-    public bool UdpRunning => _udp.IsRunning;
-    public int UdpPort => _udp.Port;
+    #endregion
+
+    #region methods
 
     public IActionResult OnPostToggleTcp()
     {
-        if (_tcp.IsRunning)
-            _tcp.Stop();
+        if (tcp.IsRunning)
+            tcp.Stop();
         else
-            _tcp.Start();
+            tcp.Start();
 
         return RedirectToPage();
     }
 
     public IActionResult OnPostToggleUdp()
     {
-        if (_udp.IsRunning)
-            _udp.Stop();
+        if (udp.IsRunning)
+            udp.Stop();
         else
-            _udp.Start();
+            udp.Start();
 
         return RedirectToPage();
     }
 
     public IActionResult OnPostRestartTcp()
     {
-        _tcp.Restart();
+        tcp.Restart();
         return RedirectToPage();
     }
 
     public IActionResult OnPostRestartUdp()
     {
-        _udp.Restart();
+        udp.Restart();
         return RedirectToPage();
     }
+
+    #endregion
 }

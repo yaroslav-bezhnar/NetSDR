@@ -3,24 +3,27 @@ using Microsoft.Extensions.DependencyInjection;
 using NetSDR.Simulator.Interfaces;
 using NetSDR.Simulator.Services;
 
-namespace NetSDR.Wpf
+namespace NetSDR.Wpf;
+
+/// <summary>
+///     Interaction logic for App.xaml
+/// </summary>
+public partial class App : Application
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    #region methods
+
+    protected override void OnStartup(StartupEventArgs e)
     {
-        protected override void OnStartup(StartupEventArgs e)
-        {
-            var services = new ServiceCollection();
+        var services = new ServiceCollection();
 
-            services.AddSingleton<ITcpSimulatorService, TcpSimulatorService>();
+        services.AddSingleton<ITcpSimulatorService, TcpSimulatorService>();
 
-            var provider = services.BuildServiceProvider();
-            var simulator = provider.GetRequiredService<ITcpSimulatorService>();
-            simulator.Start();
+        var provider = services.BuildServiceProvider();
+        var simulator = provider.GetRequiredService<ITcpSimulatorService>();
+        simulator.Start();
 
-            base.OnStartup(e);
-        }
+        base.OnStartup(e);
     }
+
+    #endregion
 }
