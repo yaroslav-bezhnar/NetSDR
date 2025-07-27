@@ -5,7 +5,7 @@ VisualStudioVersion = 17.13.35913.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetSDR.Client", "NetSDR.Client\NetSDR.Client.csproj", "{E1E76EF9-49FC-4131-9D31-A497370B2761}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetSdr.Client.Tests", "NetSdr.Client.Tests\NetSdr.Client.Tests.csproj", "{C79BD616-C66B-4046-A726-77E53D34C72F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetSDR.Client.Tests", "NetSdr.Client.Tests\NetSDR.Client.Tests.csproj", "{C79BD616-C66B-4046-A726-77E53D34C72F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NetSDR.Web", "NetSDR.Web\NetSDR.Web.csproj", "{2A344664-C6BB-4E9E-A89F-56E4FB3108E4}"
 EndProject

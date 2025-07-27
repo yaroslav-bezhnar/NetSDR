@@ -4,7 +4,7 @@ using Microsoft.Extensions.Logging.Abstractions;
 using NetSDR.Client.Models;
 using NetSDR.Client.Udp;
 
-namespace NetSdr.Client.Tests.Unit.Udp;
+namespace NetSDR.Client.Tests.Unit.Udp;
 
 public class UdpDataReceiverTests
 {

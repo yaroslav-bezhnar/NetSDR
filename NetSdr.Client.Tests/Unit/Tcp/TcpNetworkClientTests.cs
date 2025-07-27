@@ -1,9 +1,9 @@
 ﻿using System.Net.Sockets;
 using System.Text;
 using NetSDR.Client.Tcp;
-using NetSdr.Client.Tests.Helpers;
+using NetSDR.Client.Tests.Helpers;
 
-namespace NetSdr.Client.Tests.Unit.Tcp;
+namespace NetSDR.Client.Tests.Unit.Tcp;
 
 public class TcpNetworkClientTests : IDisposable
 {

@@ -7,7 +7,7 @@ using NetSDR.Client.Interfaces;
 using NetSDR.Client.Tcp;
 using Polly.Timeout;
 
-namespace NetSdr.Client.Tests.Unit.Tcp;
+namespace NetSDR.Client.Tests.Unit.Tcp;
 
 public class NetSdrTcpClientTests
 {

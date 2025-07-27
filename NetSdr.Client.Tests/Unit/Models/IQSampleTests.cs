@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using NetSDR.Client.Models;
 
-namespace NetSdr.Client.Tests.Unit.Models;
+namespace NetSDR.Client.Tests.Unit.Models;
 
 public class IQSampleTests
 {
