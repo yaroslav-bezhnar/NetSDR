@@ -1,13 +1,16 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using System.Windows;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using System.Threading.Tasks;
 using NetSDR.Client.Tcp;
+using NetSDR.Wpf.Infrastructure;
 
 namespace NetSDR.Wpf.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
     private readonly NetSdrTcpClient _tcpClient = new();
+
+    private ThemeType _currentTheme = ThemeType.Dark;
 
     public MainViewModel()
     {
@@ -26,6 +29,24 @@ public partial class MainViewModel : ObservableObject
 
     public bool IsConnected => _tcpClient.IsConnected;
     public bool IsDisconnected => !IsConnected;
+
+    public ThemeType CurrentTheme
+    {
+        get => _currentTheme;
+        set
+        {
+            if (SetProperty(ref _currentTheme, value))
+                ApplyTheme();
+        }
+    }
+
+    [RelayCommand]
+    private void ToggleTheme()
+    {
+        CurrentTheme = CurrentTheme == ThemeType.Light
+            ? ThemeType.Dark
+            : ThemeType.Light;
+    }
 
     [RelayCommand(CanExecute = nameof(IsDisconnected))]
     private async Task ConnectAsync()
@@ -129,4 +150,17 @@ public partial class MainViewModel : ObservableObject
     }
 
     private void UpdateStatus(string message) => StatusMessage = message;
+
+    private void ApplyTheme()
+    {
+        var uri = CurrentTheme switch
+        {
+            ThemeType.Dark => new Uri("Themes/DarkTheme.xaml", UriKind.Relative),
+            _ => new Uri("Themes/LightTheme.xaml", UriKind.Relative)
+        };
+
+        var dictionaries = Application.Current.Resources.MergedDictionaries;
+        dictionaries.Clear();
+        dictionaries.Add(new ResourceDictionary { Source = uri });
+    }
 }

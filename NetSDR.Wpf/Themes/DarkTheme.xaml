@@ -1,0 +1,12 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <SolidColorBrush x:Key="BackgroundColor">#1E1E1E</SolidColorBrush>
+    <SolidColorBrush x:Key="ForegroundColor">#DDD</SolidColorBrush>
+    <SolidColorBrush x:Key="ButtonColor">#90CAF9</SolidColorBrush>
+    <SolidColorBrush x:Key="StatusMessageColor" Color="SpringGreen" />
+    <SolidColorBrush x:Key="ErrorMessageColor" Color="OrangeRed" />
+    <SolidColorBrush x:Key="FlatTextBoxBackground">#2B2B2B</SolidColorBrush>
+    <SolidColorBrush x:Key="FlatTextBoxBorder">#666666</SolidColorBrush>
+    <SolidColorBrush x:Key="FlatTextBoxDisabledBackground">#3C3C3C</SolidColorBrush>
+    <SolidColorBrush x:Key="FlatTextBoxDisabledBorder">#555555</SolidColorBrush>
+</ResourceDictionary>
