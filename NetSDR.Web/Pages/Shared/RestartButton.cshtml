@@ -1,0 +1,21 @@
+﻿@model RestartButtonModel
+
+<form method="post" id="@Model.FormId" asp-page-handler="@Model.Handler">
+    <button type="submit" id="@Model.ButtonId" class="restart-btn">
+        Restart
+        <div class="spinner d-none" id="@Model.SpinnerId"></div>
+    </button>
+</form>
+
+<script>
+    const form = document.getElementById("@Model.FormId");
+    const button = document.getElementById("@Model.ButtonId");
+    const spinner = document.getElementById("@Model.SpinnerId");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+        button.classList.add("loading");
+        spinner.classList.remove("d-none");
+        setTimeout(() => form.submit(), 5000);
+    });
+</script>

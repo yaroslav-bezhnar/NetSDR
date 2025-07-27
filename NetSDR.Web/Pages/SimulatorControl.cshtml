@@ -1,0 +1,52 @@
+﻿@page
+@using Microsoft.AspNetCore.Mvc.TagHelpers
+@using NetSDR.Web.Pages.Shared
+@model SimulatorControlModel
+@{
+    ViewData["Title"] = "Simulator Control";
+}
+
+<h2>Simulator Control</h2>
+
+<div>
+    <h3>TCP Simulator</h3>
+    <form method="post" asp-page-handler="ToggleTcp">
+        <button type="submit"
+                class="toggle-btn @(Model.TcpRunning ? "running" : "stopped")">
+            @(Model.TcpRunning ? "Stop" : "Start")
+        </button>
+    </form>
+
+    @await Html.PartialAsync("RestartButton", new RestartButtonModel
+    {
+        Handler = "RestartTcp",
+        FormId = "restartForm",
+        ButtonId = "restartButton",
+        SpinnerId = "spinner"
+    })
+
+    <div>Status: @(Model.TcpRunning ? "Running" : "Stopped")</div>
+    <div>Port: @Model.TcpPort</div>
+</div>
+
+<hr/>
+
+<div>
+    <h3>UDP Simulator</h3>
+    <form method="post" asp-page-handler="ToggleUdp">
+        <button type="submit"
+                class="toggle-btn @(Model.UdpRunning ? "running" : "stopped")">
+            @(Model.UdpRunning ? "Stop" : "Start")
+        </button>
+    </form>
+
+    @await Html.PartialAsync("RestartButton", new RestartButtonModel
+    {
+        Handler = "RestartUdp",
+        FormId = "restartUdpForm",
+        ButtonId = "restartUdpButton",
+        SpinnerId = "udpSpinner"
+    })
+    <div>Status: @(Model.UdpRunning ? "Running" : "Stopped")</div>
+    <div>Port: @Model.UdpPort</div>
+</div>

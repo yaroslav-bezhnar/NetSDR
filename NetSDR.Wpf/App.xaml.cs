@@ -1,6 +1,7 @@
 ﻿using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
-using NetSDR.Simulator;
+using NetSDR.Simulator.Interfaces;
+using NetSDR.Simulator.Services;
 
 namespace NetSDR.Wpf
 {
