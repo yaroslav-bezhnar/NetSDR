@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using NetSDR.Client.Models;
 
-namespace NetSdr.Client.Test.Unit.Models;
+namespace NetSdr.Client.Tests.Unit.Models;
 
 public class ConnectionResultTests
 {

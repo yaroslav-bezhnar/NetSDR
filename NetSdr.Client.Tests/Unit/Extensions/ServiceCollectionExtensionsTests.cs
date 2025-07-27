@@ -5,7 +5,7 @@ using NetSDR.Client.Interfaces;
 using NetSDR.Client.Tcp;
 using NetSDR.Client.Udp;
 
-namespace NetSdr.Client.Test.Unit.Extensions;
+namespace NetSdr.Client.Tests.Unit.Extensions;
 
 public class ServiceCollectionExtensionsTests
 {
