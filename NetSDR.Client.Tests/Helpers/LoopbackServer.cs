@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Net.Sockets;
 
-namespace NetSdr.Client.Test.Helpers;
+namespace NetSDR.Client.Tests.Helpers;
 
 public class LoopbackServer : IDisposable
 {

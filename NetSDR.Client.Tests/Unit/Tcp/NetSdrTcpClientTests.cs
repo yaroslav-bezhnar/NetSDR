@@ -7,7 +7,7 @@ using NetSDR.Client.Interfaces;
 using NetSDR.Client.Tcp;
 using Polly.Timeout;
 
-namespace NetSdr.Client.Test.Unit.Tcp;
+namespace NetSDR.Client.Tests.Unit.Tcp;
 
 public class NetSdrTcpClientTests
 {
@@ -224,7 +224,7 @@ public class NetSdrTcpClientTests
         _mockNetworkClient
             .Setup(x => x.ReadAsync(It.IsAny<byte[]>(), 0, It.IsAny<int>(), It.IsAny<CancellationToken>()))
             .ReturnsAsync(expectedCmd.Length)
-            .Callback<byte[], int, int, CancellationToken>((buf, offset, len, ct) =>
+            .Callback<byte[], int, int, CancellationToken>((buf, offset, _, ct) =>
             {
                 var bytes = Encoding.ASCII.GetBytes(expectedCmd);
                 Array.Copy(bytes, 0, buf, offset, bytes.Length);

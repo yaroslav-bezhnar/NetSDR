@@ -27,7 +27,7 @@ jobs:
           dotnet restore NetSDR.Client/NetSDR.Client.csproj
           dotnet restore NetSDR.Console/NetSDR.Console.csproj
           dotnet restore NetSDR.Web/NetSDR.Web.csproj
-          dotnet restore NetSDR.Client.Test/NetSDR.Client.Test.csproj
+          dotnet restore NetSDR.Client.Tests/NetSDR.Client.Tests.csproj
 
       # Build only selected projects (exclude WPF)
       - name: Build Core
@@ -47,4 +47,4 @@ jobs:
 
       # Run only Client Tests
       - name: Run Client Tests
-        run: dotnet test NetSDR.Client.Test/NetSDR.Client.Tests.csproj -c Release --no-build --verbosity normal
+        run: dotnet test NetSDR.Client.Tests/NetSDR.Client.Tests.csproj -c Release --verbosity normal
